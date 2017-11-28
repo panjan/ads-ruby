@@ -6,12 +6,12 @@ require "ads_ruby/version"
 Gem::Specification.new do |spec|
   spec.name          = "ads_ruby"
   spec.version       = AdsRuby::VERSION
-  spec.authors       = ["panjan"]
-  spec.email         = ["hi@honza.me"]
+  spec.authors       = ["Jan Zdrahal", "Jakub Mahnert"]
+  spec.email         = ["jan.zdrahal@gooddata.com", "jakub.mahnert@gooddata.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{ADS driver for MRI Ruby}
+  spec.description   = %q{Driver for the GoodData datawarehouse.}
+  spec.homepage      = "https://github.com/panjan/ads-ruby"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
