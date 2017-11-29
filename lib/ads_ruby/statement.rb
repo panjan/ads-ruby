@@ -1,12 +1,16 @@
+require_relative 'result_factory'
+
 module AdsRuby
   class Statement
     def initialize(connection, client)
       @connection = connection
       @client = client
+      @result_factory = ResultFactory.new(@client)
     end
 
     def execute_query(sql)
-      execute(sql, ExecuteMethodType::QUERY)
+      result = execute(sql, ExecuteMethodType::QUERY)
+      @result_factory.process_update_query_result(result.resultSetId)
     end
 
     def execute_update(sql)
@@ -15,8 +19,7 @@ module AdsRuby
 
     def execute(sql, method_type)
       descriptor = @client.execute(sql, method_type)
-      a = @client.getNextExecutionResult(descriptor.executionId)
-      b = 5
+      @client.getNextExecutionResult(descriptor.executionId) unless method_type == ExecuteMethodType::UPDATE
     end
   end
 end
