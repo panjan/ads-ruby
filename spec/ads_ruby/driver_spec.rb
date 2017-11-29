@@ -13,14 +13,12 @@ RSpec.describe AdsRuby::Driver do
       subject.authenticate
       sql = 'DROP TABLE IF EXISTS meh'
       result = subject.update sql
-      a = 5
     end
 
     it 'executes a select query' do
       subject.authenticate
       sql = 'SELECT * FROM ADS_RUBY_TEST'
       result = subject.select sql
-      a = 5
     end
   end
 end
