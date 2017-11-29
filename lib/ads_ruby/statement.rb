@@ -43,7 +43,7 @@ module AdsRuby
           # if ((value_bits[i / 8] & 1 << i % 8) != 0)
           # end
         column_types.each_with_index do |column_type, i|
-          case column_types[i]
+          case column_type
           when 'bool'
             result = protocol.read_bool;
           when 'int'
@@ -58,7 +58,7 @@ module AdsRuby
             result = protocol.read_string;
           end
           results << result
-          break if value_bits = 0
+          break if value_bits == 0
         end
       end
       results
