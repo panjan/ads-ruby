@@ -15,8 +15,8 @@ module AdsRuby
     end
 
     def authenticate
-      user = 'rubydev+admin@gooddata.com'
-      pass = ENV['ads-ruby-pass']
+      user = ENV['ADS_RUBY_LOGIN']
+      pass = ENV['ADS_RUBY_PASS']
 
       options = AuthOptions.new('clientName' => CLIENT_NAME,
                                 'clientVersion' => VERSION,
