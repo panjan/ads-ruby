@@ -36,6 +36,7 @@ module AdsRuby
 
       transport = Thrift::MemoryBufferTransport.new(binary)
       protocol = Thrift::BinaryProtocol.new(transport)
+      results = []
       loop do
         value_bits = transport.read(value_bits_length)
         break if value_bits.length <= 0
@@ -44,24 +45,23 @@ module AdsRuby
         column_types.each_with_index do |column_type, i|
           case column_types[i]
           when 'bool'
-            result = protocol.readBool();
+            result = protocol.read_bool;
           when 'int'
-            result = protocol.readI32();
+            result = protocol.read_i32;
           when 'long'
-            result = protocol.readI64();
+            result = protocol.read_i64;
           when 'double'
-            result = protocol.readDouble();
+            result = protocol.read_double;
           when 'timestamp'
-            if (protocol.readBool())
-              result = new Timestamp(protocol.readI64());
-            else
-              result = Timestamp.valueOf(protocol.readString());
-            end
+            throw 'TIMESTAMP NEUMIME'
           else
-            result = protocol.readString();
+            result = protocol.read_string;
           end
+          results << result
+          break if value_bits = 0
         end
       end
+      results
     end
   end
 end
