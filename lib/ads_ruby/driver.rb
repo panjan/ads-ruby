@@ -11,8 +11,8 @@ module AdsRuby
       socket = Thrift::SSLSocket.new(@connection_string, 9443)
       socket.ssl_context = OpenSSL::SSL::SSLContext.new
       socket.open
-      transport = Thrift::BinaryProtocol.new(socket)
-      @client = JdbcProxy::Client.new(transport)
+      protocol = Thrift::BinaryProtocol.new(socket)
+      @client = JdbcProxy::Client.new(protocol)
     end
 
     def authenticate
