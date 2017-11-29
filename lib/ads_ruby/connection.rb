@@ -2,8 +2,8 @@ require_relative '../thrift/gen-rb/jdbc_proxy'
 
 module AdsRuby
   class Connection
-    CLIENT_NAME = 'GoodData JDBC Driver'
-    VERSION = '1.0.0'
+    CLIENT_NAME = 'Experimental MRI Ruby ADS driver'
+    VERSION = '3.0.0'
     PROTOCOLS = [6, 7, 8]
     def initialize
       @connection_string = 'datawarehouse02-stg2.wild.intgdc.com'
