@@ -7,7 +7,8 @@ module AdsRuby
     PROTOCOLS = [6, 7, 8]
     def initialize
       @connection_string = 'datawarehouse02-stg2.wild.intgdc.com'
-      socket = Thrift::Socket.new(@connection_string, 9443)
+      socket = Thrift::SSLSocket.new(@connection_string, 9443)
+      socket.ssl_context = OpenSSL::SSL::SSLContext.new
       socket.open
       transport = Thrift::BinaryProtocol.new(socket)
       @client = JdbcProxy::Client.new(transport)
