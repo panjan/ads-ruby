@@ -39,7 +39,7 @@ module AdsRuby
       results = []
       loop do
         value_bits = transport.read(value_bits_length)
-        break if value_bits.length <= 0
+        break if value_bits.nil?
           # if ((value_bits[i / 8] & 1 << i % 8) != 0)
           # end
         column_types.each_with_index do |column_type, i|
@@ -58,7 +58,7 @@ module AdsRuby
             result = protocol.read_string;
           end
           results << result
-          break if value_bits == 0
+          break if value_bits.nil?
         end
       end
       results
