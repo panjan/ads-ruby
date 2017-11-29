@@ -1,6 +1,6 @@
-require_relative '../../lib/ads_ruby/connection'
+require_relative '../../lib/ads_ruby/driver'
 
-RSpec.describe AdsRuby::Connection do
+RSpec.describe AdsRuby::Driver do
   it 'authenticates' do
     result = subject.authenticate
     expect(result).to be
