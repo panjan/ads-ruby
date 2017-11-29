@@ -19,7 +19,7 @@ module AdsRuby
 
     def execute(sql, method_type)
       descriptor = @client.execute(sql, method_type)
-      @client.getNextExecutionResult(descriptor.executionId) unless method_type == ExecuteMethodType::UPDATE
+      @client.getNextExecutionResult(descriptor.executionId)
     end
   end
 end

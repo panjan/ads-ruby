@@ -1,5 +1,5 @@
-require "bundler/setup"
-require "ads_ruby"
+require 'bundler/setup'
+require 'ads_ruby'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
