@@ -29,4 +29,12 @@ RSpec.describe AdsRuby do
     result = sl "SELECT * FROM #{cities_table_name}"
     expect(result).not_to be nil
   end
+
+  it 'can create a more complex table' do
+    ud "DROP TABLE IF EXISTS #{countries_table_name}"
+    ud "CREATE TABLE #{countries_table_name} (name VARCHAR(200), citizens INT)"
+    ud "INSERT INTO #{countries_table_name} (name, citizens) VALUES('USA', 120)"
+    result = sl "SELECT * FROM #{countries_table_name}"
+    expect(result).not_to be nil
+  end
 end

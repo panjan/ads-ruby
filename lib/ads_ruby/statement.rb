@@ -13,7 +13,12 @@ module AdsRuby
       result_set_id = result.resultSetId
       metadata = @client.getResultSetMetadata(result_set_id)
       binary = @client.queryResultSetBinary(result_set_id)
-      deserialize(binary, metadata)
+      results_array = deserialize(binary, metadata)
+      column_names = metadata.columns
+          .map(&:columnName)
+      results_array.map do |row|
+        Hash[column_names.zip(row)]
+      end
     end
 
     def execute_update(sql)
@@ -32,7 +37,6 @@ module AdsRuby
                              .map(&:columnType)
                              .map { |t| Types.transport_type(t) }
       value_bits_length = (column_types.length + 7) / 8;
-      # value_bits = byte[valueBitsLength];
 
       transport = Thrift::MemoryBufferTransport.new(binary)
       protocol = Thrift::BinaryProtocol.new(transport)
