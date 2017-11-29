@@ -38,11 +38,13 @@ module AdsRuby
       protocol = Thrift::BinaryProtocol.new(transport)
       results = []
       loop do
+        break unless transport.peek
         value_bits = transport.read(value_bits_length)
-        break if value_bits.nil?
-          # if ((value_bits[i / 8] & 1 << i % 8) != 0)
-          # end
+        break if value_bits.size <= 0
+        value_array = value_bits.each_byte.to_a
+        row = []
         column_types.each_with_index do |column_type, i|
+          break if (value_array[i / 8] >> ( i % 8 )).to_s == 0
           case column_type
           when 'bool'
             result = protocol.read_bool;
@@ -57,9 +59,9 @@ module AdsRuby
           else
             result = protocol.read_string;
           end
-          results << result
-          break if value_bits.nil?
+          row << result
         end
+        results << row
       end
       results
     end
