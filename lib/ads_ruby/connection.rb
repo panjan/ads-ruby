@@ -25,7 +25,7 @@ module AdsRuby
                                 'params' => {},
                                 'domainHostname' => @connection_string)
 
-      @client.auth(@connection_string, user, pass, options)
+      @client.auth('a177a833944a6835c4d730a385c82c46', user, pass, options)
     end
   end
 end
