@@ -12,7 +12,7 @@ RSpec.describe AdsRuby::Driver do
     it 'executes a update query' do
       subject.authenticate
       sql = 'DROP TABLE IF EXISTS meh'
-      result = subject.select sql
+      result = subject.update sql
       a = 5
     end
 

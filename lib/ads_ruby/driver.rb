@@ -34,5 +34,10 @@ module AdsRuby
       statement = @connection.create_statement
       statement.execute_query(sql)
     end
+
+    def update(sql)
+      statement = @connection.create_statement
+      statement.execute_update(sql)
+    end
   end
 end
