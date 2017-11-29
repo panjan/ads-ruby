@@ -27,7 +27,12 @@ module AdsRuby
                                 'domainHostname' => 'staging2-lcm-prod.intgdc.com')
 
       result = @client.auth('a177a833944a6835c4d730a385c82c46', user, pass, options)
-      @connection = Connection.new(result.connectionId)
+      @connection = Connection.new(result.connectionId, @client)
+    end
+
+    def select(sql)
+      statement = @connection.create_statement
+      statement.execute_query(sql)
     end
   end
 end
