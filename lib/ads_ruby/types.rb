@@ -1,6 +1,6 @@
 module AdsRuby
   class Types
-    def transport_type(column)
+    def self.transport_type(column)
       case column
         when BIT
         when BOOLEAN

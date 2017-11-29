@@ -1,3 +1,6 @@
+require_relative 'types'
+require_relative 'bit_array'
+
 module AdsRuby
   class Statement
     def initialize(connection, client)
@@ -25,9 +28,39 @@ module AdsRuby
     def deserialize(binary, metadata)
       return if binary.nil?
 
-      column_count = metadata.columns.length
-      column_count.times.with_index do |i|
-        puts i
+      column_types = metadata.columns
+                             .map(&:columnType)
+                             .map { |t| Types.transport_type(t) }
+      value_bits_length = (column_types.length + 7) / 8;
+      # value_bits = byte[valueBitsLength];
+
+      transport = Thrift::MemoryBufferTransport.new(binary)
+      protocol = Thrift::BinaryProtocol.new(transport)
+      loop do
+        value_bits = transport.read(value_bits_length)
+        break if value_bits.length <= 0
+          # if ((value_bits[i / 8] & 1 << i % 8) != 0)
+          # end
+        column_types.each_with_index do |column_type, i|
+          case column_types[i]
+          when 'bool'
+            result = protocol.readBool();
+          when 'int'
+            result = protocol.readI32();
+          when 'long'
+            result = protocol.readI64();
+          when 'double'
+            result = protocol.readDouble();
+          when 'timestamp'
+            if (protocol.readBool())
+              result = new Timestamp(protocol.readI64());
+            else
+              result = Timestamp.valueOf(protocol.readString());
+            end
+          else
+            result = protocol.readString();
+          end
+        end
       end
     end
   end
