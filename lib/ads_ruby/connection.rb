@@ -23,7 +23,7 @@ module AdsRuby
                                 'supportedProtocolVersions' => PROTOCOLS,
                                 'secretType' => SecretType::PASSWORD,
                                 'params' => {},
-                                'domainHostname' => @connection_string)
+                                'domainHostname' => 'staging2-lcm-prod.intgdc.com')
 
       @client.auth('a177a833944a6835c4d730a385c82c46', user, pass, options)
     end
