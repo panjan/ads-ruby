@@ -5,7 +5,7 @@
 #
 
 require 'thrift'
-require 'datawarehouse-jdbc-bridge_types'
+require_relative 'datawarehouse-jdbc-bridge_types'
 
 module JdbcProxy
   class Client
@@ -1151,4 +1151,3 @@ module JdbcProxy
   end
 
 end
-
