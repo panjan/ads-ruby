@@ -1,5 +1,27 @@
 module AdsRuby
   class Types
+    def transport_type(column)
+      case column
+        when BIT
+        when BOOLEAN
+          return 'bool';
+        when INTEGER
+        when TINYINT
+        when SMALLINT
+          return 'int';
+        when BIGINT
+          return 'long';
+        when TIMESTAMP
+          return 'timestamp';
+        when REAL
+        when FLOAT
+        when DOUBLE
+          return 'double';
+        else
+          return 'string';
+      end
+    end
+
     BIT = -7
     TINYINT = -6
     SMALLINT = 5
