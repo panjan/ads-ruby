@@ -10,7 +10,6 @@ end
 
 RSpec.describe AdsRuby do
   let(:cities_table_name) { 'test_cities' }
-  let(:countries_table_name) { 'test_countries' }
 
   before do
     @driver = AdsRuby::Driver.new
@@ -23,18 +22,16 @@ RSpec.describe AdsRuby do
 
   it 'can create a table and fill it with data' do
     ud "DROP TABLE IF EXISTS #{cities_table_name}"
-    ud "CREATE TABLE #{cities_table_name} (name VARCHAR(200))"
-    ud "INSERT INTO #{cities_table_name} (name) VALUES ('Brno')"
-    ud "INSERT INTO #{cities_table_name} (name) VALUES ('Praha')"
+    ud "CREATE TABLE #{cities_table_name} (name VARCHAR(200), citizens INT)"
+    ud "INSERT INTO #{cities_table_name} (name, citizens) VALUES ('Brno', 120)"
+    ud "INSERT INTO #{cities_table_name} (name, citizens) VALUES ('Praha', 150)"
     result = sl "SELECT * FROM #{cities_table_name}"
-    expect(result).to eq [{name: 'Brno'}, {name: 'Praha'}]
+    expect(result).to eq [{name: 'Brno', citizens: 120}, {name: 'Praha', citizens: 150}]
+    result = sl "SELECT citizens FROM #{cities_table_name} WHERE name = 'Brno'"
+    expect(result).to eq [{citizens: 120}]
   end
 
-  it 'can create a more complex table' do
-    ud "DROP TABLE IF EXISTS #{countries_table_name}"
-    ud "CREATE TABLE #{countries_table_name} (name VARCHAR(200), citizens INT)"
-    ud "INSERT INTO #{countries_table_name} (name, citizens) VALUES('USA', 120)"
-    result = sl "SELECT * FROM #{countries_table_name}"
-    expect(result).to eq [{name: 'USA', citizens: 120}]
+  after do
+    ud "DROP TABLE IF EXISTS #{cities_table_name}"
   end
 end
