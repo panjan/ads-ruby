@@ -7,7 +7,7 @@ module AdsRuby
     VERSION = '3.0.0'
     PROTOCOLS = [6, 7, 8]
     def initialize
-      @connection_string = 'datawarehouse02-stg2.wild.intgdc.com'
+      @connection_string = 'datawarehouse02-stg3.wild.intgdc.com'
       socket = Thrift::SSLSocket.new(@connection_string, 9443)
       socket.ssl_context = OpenSSL::SSL::SSLContext.new
       socket.open
@@ -24,9 +24,9 @@ module AdsRuby
                                 'supportedProtocolVersions' => PROTOCOLS,
                                 'secretType' => SecretType::PASSWORD,
                                 'params' => {},
-                                'domainHostname' => 'staging2-lcm-prod.intgdc.com')
+                                'domainHostname' => 'staging3-lcm-prod.intgdc.com')
 
-      result = @client.auth('a177a833944a6835c4d730a385c82c46', user, pass, options)
+      result = @client.auth('a1e5ec27bf7e0506cc467e3a502187a0', user, pass, options)
       @connection = Connection.new(result.connectionId, @client)
     end
 

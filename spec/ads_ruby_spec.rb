@@ -27,7 +27,7 @@ RSpec.describe AdsRuby do
     ud "INSERT INTO #{cities_table_name} (name) VALUES ('Brno')"
     ud "INSERT INTO #{cities_table_name} (name) VALUES ('Praha')"
     result = sl "SELECT * FROM #{cities_table_name}"
-    expect(result).not_to be nil
+    expect(result).to eq [{name: 'Brno'}, {name: 'Praha'}]
   end
 
   it 'can create a more complex table' do
@@ -35,6 +35,6 @@ RSpec.describe AdsRuby do
     ud "CREATE TABLE #{countries_table_name} (name VARCHAR(200), citizens INT)"
     ud "INSERT INTO #{countries_table_name} (name, citizens) VALUES('USA', 120)"
     result = sl "SELECT * FROM #{countries_table_name}"
-    expect(result).not_to be nil
+    expect(result).to eq [{name: 'USA', citizens: 120}]
   end
 end

@@ -1,5 +1,4 @@
 require_relative 'types'
-require_relative 'bit_array'
 
 module AdsRuby
   class Statement
@@ -17,7 +16,7 @@ module AdsRuby
       column_names = metadata.columns
           .map(&:columnName)
       results_array.map do |row|
-        Hash[column_names.zip(row)]
+        Hash[column_names.map(&:to_sym).zip(row)]
       end
     end
 
